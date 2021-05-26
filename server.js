@@ -1,18 +1,18 @@
 // this is where the main server will run from
 
+
+
+
+
 //this will get express started
 const express = require('express');
+const PORT = process.env.PORT || 3001;
 const app = express();
 //end of start of express
 
 
 //creating a route that the front-end can request data from
 const { animals } = require('./data/animals');
-
-
-
-
-
 
 
 
@@ -139,7 +139,7 @@ app.get('/api/animals', (req, res) => {
 
 
 //listen method
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log(`API server now on port 3001!`);
 });
   //end of listen method
