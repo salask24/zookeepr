@@ -1,9 +1,5 @@
 // this is where the main server will run from
 
-
-
-
-
 //this will get express started
 const express = require('express');
 const PORT = process.env.PORT || 3001;
@@ -13,8 +9,6 @@ const app = express();
 
 //creating a route that the front-end can request data from
 const { animals } = require('./data/animals');
-
-
 
 //1. api/animal route with get method - which requires two arguments (request, response)
 //if the user uses that api/animals in url then they will be sent the response "Hello!" 
@@ -101,17 +95,21 @@ function filterByQuery(query, animalsArray) {
 
 //ex. http://localhost:3001/api/animals?personalityTraits=hungry would list all animals with the personalityTrait that is labeled as 'hungry'
 //ex. http://localhost:3001/api/animals?personalityTraits=hungry&personalityTraits=zany 
-    //This added both traits which are 'hungry' and 'zany'
+//This added both traits which are 'hungry' and 'zany'
 //end of the function that handles it all
 
 
+//function called findById() that takes in the id and array of animals and returns a single animal object
+
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
+//end of function called findById() that takes in the id and array of animals and returns a single animal object
 
 
-
-
-
-
-//4-callback. filterByQuery() app.get() callback
+//4-callback filterByQuery() app.get() callback
 //this is the callback that will only list what was called in URL
 
 app.get('/api/animals', (req, res) => {
@@ -122,8 +120,21 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
 });
 
-//
+//end 
 
+
+//route for animals with id
+
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.send(404);
+    }
+});
+
+//end of route for animals with id
 
 
 //3. accessing the query property on req object
