@@ -137,6 +137,8 @@ app.get('/api/animals/:id', (req, res) => {
 //end of route for animals with id
 
 
+app.post('/api/animals', (req, res) => { });
+
 //3. accessing the query property on req object
 //this will show the name value in the terminal 
 
